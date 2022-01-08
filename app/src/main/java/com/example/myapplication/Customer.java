@@ -5,25 +5,18 @@ import com.google.gson.annotations.SerializedName;
 import java.sql.Date;
 
 public class Customer {
-    @SerializedName(cf)
-    public String cf;
-    @SerializedName(name)
-    public String name;
-    @SerializedName(surname)
-    public String surname;
-    @SerializedName(dob)
-    public Date dob;
-    @SerializedName(email)
-    public String email;
-    @SerializedName(pwd)
-    public String pwd;
 
-    public Customer(String cf, String name, Date dob, String email) {
-        this.cf = cf;
-        this.name = name;
-        this.dob = dob;
-        this.email = email;
-    }
+    public String cf;
+
+    public String name;
+
+    public String surname;
+
+    public String dob;
+
+    public String email;
+
+    public String pwd;
 
     public String getCf() {
         return cf;
@@ -37,9 +30,7 @@ public class Customer {
         return surname;
     }
 
-    public Date getDob() {
-        return dob;
-    }
+    public String getDob() { return dob; }
 
     public String getEmail() {
         return email;
