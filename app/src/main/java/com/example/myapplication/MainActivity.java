@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         textViewResult = findViewById(R.id.text_view_result);
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://10.0.0.29:8080/controller/").addConverterFactory(GsonConverterFactory.create()).build();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://10.0.0.10:8080/controller/").addConverterFactory(GsonConverterFactory.create()).build();
 
         CustomerAPI customerAPI = retrofit.create(CustomerAPI.class);
 
