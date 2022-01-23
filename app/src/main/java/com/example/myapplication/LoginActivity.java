@@ -4,22 +4,158 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.material.textfield.TextInputEditText;
+
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
+
+    TextView btnSignUp;
+    EditText inputEmail, inputPassword;
+    Button btnLogin;
+    Boolean flag = false;
+    CustomerAPI customerAPI;
+
+    SessionManager currentSession;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        TextView btnSignUp = findViewById(R.id.textSignUp);
+        initViews();
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (validateEmail() && validatePassword()) {
+
+                    Retrofit retrofit = new Retrofit.Builder().baseUrl("http://10.0.0.10:8080/").addConverterFactory(GsonConverterFactory.create()).build();
+
+                    customerAPI = retrofit.create(CustomerAPI.class);
+
+                    RequestBody requestBody = new MultipartBody.Builder()
+                            .setType(MultipartBody.FORM)
+                            .addFormDataPart("username", inputEmail.getText().toString())
+                            .addFormDataPart("password", inputPassword.getText().toString())
+                            .build();
+
+                    customerAPI.loginCustomer(requestBody).enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            if(!response.isSuccessful()) {
+                                Toast.makeText(LoginActivity.this,"WRONG CREDENTIALS.", Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(LoginActivity.this,"LOGIN COMPLETE SUCCESSFULLY.", Toast.LENGTH_LONG).show();
+                                flag = true;
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            Toast.makeText(LoginActivity.this,"Error during login, please make another attempt.", Toast.LENGTH_LONG).show();
+
+                        }
+                    });
+
+                    if (flag=true) {
+                        customerAPI.getCustomer(inputEmail.getText().toString()).enqueue(new Callback<Customer>() {
+                            @Override
+                            public void onResponse(Call<Customer> call, Response<Customer> response) {
+                                if(!response.isSuccessful()) {
+                                    Toast.makeText(LoginActivity.this,"Something gone wrong, please male another attempt.", Toast.LENGTH_LONG).show();
+                                } else {
+
+                                    Customer loggedCustomer = response.body();
+
+                                    currentSession = new SessionManager(LoginActivity.this);
+                                    currentSession.createLoginSession(loggedCustomer.name,loggedCustomer.surname,loggedCustomer.email,loggedCustomer.cf, loggedCustomer.dob);
+
+                                    startActivity(new Intent(LoginActivity.this,TestDashboard.class));
+
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Customer> call, Throwable t) {
+                                Toast.makeText(LoginActivity.this,"Error during retrieving data.", Toast.LENGTH_LONG).show();
+                            }
+                        });
+
+                    }
+
+                }
+
+            }
+        });
+
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(this,RegisterActivity.class));
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
             }
         });
+    }
+
+    public void initViews() {
+
+        btnSignUp = findViewById(R.id.textSignUp);
+        inputEmail = findViewById(R.id.inputEmail);
+        inputPassword = findViewById(R.id.inputPwd);
+        btnLogin = findViewById(R.id.btnLogin);
+
+    }
+
+    public boolean validateEmail() {
+        String emailInput = inputEmail.getText().toString().trim();
+
+        if (emailInput.isEmpty()) {
+            inputEmail.setError("Field can't be empty!");
+            return false;
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
+            inputEmail.setError("Please enter a valid email address.");
+            return false;
+        } else {
+            inputEmail.setError(null);
+            return true;
+        }
+    }
+
+    public boolean validatePassword() {
+        String pwdInput = inputPassword.getText().toString().trim();
+
+        if (pwdInput.isEmpty()) {
+            inputPassword.setError("Field can't be empty!");
+            return false;
+        } else {
+            inputPassword.setError(null);
+            return true;
+        }
+    }
+
+    public void login(){
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("username", inputEmail.getText().toString())
+                .addFormDataPart("password", inputPassword.getText().toString())
+                .build();
+
+
     }
 }

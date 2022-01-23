@@ -29,7 +29,7 @@
         android:layout_marginEnd="32dp"
         android:background="@drawable/rgstr_bg"
         android:drawableLeft="@drawable/ic_baseline_person_24"
-        android:drawablePadding="10db"
+        android:drawablePadding="10dp"
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName"
@@ -43,13 +43,13 @@
         app:layout_constraintTop_toBottomOf="@+id/rgstrLogo" />
 
     <EditText
-        android:id="@+id/rgstrSurname"
+        android:id="@+id/rgstrEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="@drawable/rgstr_bg"
         android:drawableLeft="@drawable/ic_baseline_email_24"
-        android:drawablePadding="10db"
+        android:drawablePadding="10dp"
         android:ems="10"
         android:hint="Email"
         android:inputType="textPersonName"
@@ -62,13 +62,13 @@
         app:layout_constraintTop_toBottomOf="@+id/rgstrCF" />
 
     <EditText
-        android:id="@+id/rgstrEmail"
+        android:id="@+id/rgstrSurname"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="@drawable/rgstr_bg"
         android:drawableLeft="@drawable/ic_baseline_person_24"
-        android:drawablePadding="10db"
+        android:drawablePadding="10dp"
         android:ems="10"
         android:hint="Surname"
         android:inputType="textPersonName"
@@ -87,7 +87,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/rgstr_bg"
         android:drawableLeft="@drawable/ic_baseline_security_24"
-        android:drawablePadding="10db"
+        android:drawablePadding="10dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
@@ -106,7 +106,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/rgstr_bg"
         android:drawableLeft="@drawable/ic_baseline_security_24"
-        android:drawablePadding="10db"
+        android:drawablePadding="10dp"
         android:ems="10"
         android:hint="Confirm Password"
         android:inputType="textPassword"
@@ -121,7 +121,7 @@
 
     <Button
         android:id="@+id/btnRgstr"
-        android:layout_width="0db"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="@drawable/btn_bg"
@@ -137,28 +137,9 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/rgstr_bg"
         android:drawableLeft="@drawable/ic_baseline_person_24"
-        android:drawablePadding="10db"
+        android:drawablePadding="10dp"
         android:ems="10"
         android:hint="Codice Fiscale"
-        android:inputType="textPersonName"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/rgstrEmail"
-        app:layout_constraintStart_toStartOf="@+id/rgstrEmail"
-        app:layout_constraintTop_toBottomOf="@+id/rgstrEmail" />
-
-    <EditText
-        android:id="@+id/rgstrDOB"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/rgstr_bg"
-        android:drawableLeft="@drawable/ic_baseline_calendar_today_24"
-        android:drawablePadding="10db"
-        android:ems="10"
-        android:hint="Data di nascita"
         android:inputType="textPersonName"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
@@ -167,5 +148,24 @@
         app:layout_constraintEnd_toEndOf="@+id/rgstrSurname"
         app:layout_constraintStart_toStartOf="@+id/rgstrSurname"
         app:layout_constraintTop_toBottomOf="@+id/rgstrSurname" />
+
+    <EditText
+        android:id="@+id/rgstrDOB"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rgstr_bg"
+        android:drawableLeft="@drawable/ic_baseline_calendar_today_24"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="Data di nascita"
+        android:inputType="textPersonName"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/rgstrEmail"
+        app:layout_constraintStart_toStartOf="@+id/rgstrEmail"
+        app:layout_constraintTop_toBottomOf="@+id/rgstrEmail" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

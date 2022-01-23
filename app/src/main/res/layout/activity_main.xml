@@ -1,27 +1,279 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp"
     tools:context=".MainActivity">
 
-    <androidx.core.widget.NestedScrollView
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:id="@+id/menuToolbar">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/purple_500"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:title="Welcome to out App!"
+                app:titleTextColor="@color/white" />
+
+            <Button
+                android:id="@+id/loginRedirect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_baseline_person_24_white"
+                android:text="Login"
+                app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+                app:layout_constraintEnd_toEndOf="@+id/toolbar"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/menuToolbar"
+        android:layout_marginTop="10dp">
+
+        <EditText
+            android:id="@+id/searchBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_toStartOf="@+id/btnSearch"
+            android:hint="Address" />
+
+        <ImageView
+            android:id="@+id/btnSearch"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/ic_baseline_search_24" />
 
         <TextView
-            android:id="@+id/text_view_result"
+            android:id="@+id/moreFilters"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#000"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_below="@+id/searchBox"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="50dp"
+            android:text="More filters"
+            android:textSize="15dp" />
 
-    </androidx.core.widget.NestedScrollView>
+        <ImageView
+            android:id="@+id/btnDownArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/searchBox"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_baseline_keyboard_arrow_down_24" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/btnUpArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/searchBox"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_baseline_keyboard_arrow_up_24"
+            android:visibility="gone"/>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/moreFilters2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/moreFilters"
+            android:visibility="gone">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="200dp" />
+
+            <TextView
+                android:id="@+id/numGuests"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Number of guests:"
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toStartOf="@+id/guideline4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/numGuestSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/numGuests"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline4"
+                app:layout_constraintTop_toTopOf="@+id/numGuests" />
+
+            <TextView
+                android:id="@+id/budgetNotte"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Budget:"
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="@+id/numGuests"
+                app:layout_constraintStart_toStartOf="@+id/numGuests"
+                app:layout_constraintTop_toBottomOf="@+id/numGuests" />
+
+            <EditText
+                android:id="@+id/budgetNotteSelector"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:hint="Budget"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="@+id/budgetNotte"
+                app:layout_constraintEnd_toEndOf="@+id/numGuestSpinner"
+                app:layout_constraintStart_toStartOf="@+id/numGuestSpinner"
+                app:layout_constraintTop_toTopOf="@+id/budgetNotte"
+                app:layout_constraintVertical_bias="0.363" />
+
+            <CheckBox
+                android:id="@+id/tagMountain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layoutDirection="rtl"
+                android:paddingStart="200dp"
+                android:text="Mountain"
+                android:textDirection="ltr"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textTags" />
+
+            <CheckBox
+                android:id="@+id/tagSea"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                android:paddingStart="200dp"
+                android:text="Sea"
+                android:textDirection="ltr"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="@+id/tagMountain"
+                app:layout_constraintHorizontal_bias="0.525"
+                app:layout_constraintStart_toStartOf="@+id/tagMountain"
+                app:layout_constraintTop_toBottomOf="@+id/tagMountain" />
+
+            <CheckBox
+                android:id="@+id/tagCity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                android:paddingStart="200dp"
+                android:text="City"
+                android:textDirection="ltr"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="@+id/tagSea"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/tagSea"
+                app:layout_constraintTop_toBottomOf="@+id/tagSea" />
+
+            <CheckBox
+                android:id="@+id/tagLake"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                android:paddingStart="200dp"
+                android:text="Lake"
+                android:textDirection="ltr"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="@+id/tagCity"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/tagCity"
+                app:layout_constraintTop_toBottomOf="@+id/tagCity" />
+
+            <CheckBox
+                android:id="@+id/tagBB"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                android:paddingStart="20dp"
+                android:text="Bed and Breakfast"
+                android:textDirection="ltr"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="@+id/tagLake"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/tagLake"
+                app:layout_constraintTop_toBottomOf="@+id/tagLake" />
+
+            <CheckBox
+                android:id="@+id/tagMetropoly"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                android:paddingStart="20dp"
+                android:text="Metropoly"
+                android:textDirection="ltr"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="@+id/tagBB"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/tagBB"
+                app:layout_constraintTop_toBottomOf="@+id/tagBB" />
+
+            <CheckBox
+                android:id="@+id/tagCountryside"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                android:paddingStart="20dp"
+                android:text="Countryside"
+                android:textDirection="ltr"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="@+id/tagMetropoly"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/tagMetropoly"
+                app:layout_constraintTop_toBottomOf="@+id/tagMetropoly" />
+
+            <TextView
+                android:id="@+id/textTags"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="Tags:"
+
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/budgetNotte"
+                app:layout_constraintStart_toStartOf="@+id/budgetNotte"
+                app:layout_constraintTop_toBottomOf="@+id/budgetNotte" />
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

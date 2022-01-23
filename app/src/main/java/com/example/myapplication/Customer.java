@@ -18,6 +18,18 @@ public class Customer {
 
     public String pwd;
 
+    public String accountType;
+
+    public Customer(String cf, String name, String surname, String dob, String email, String pwd) {
+        this.cf = cf;
+        this.name = name;
+        this.surname = surname;
+        this.dob = dob;
+        this.email = email;
+        this.pwd = pwd;
+        this.accountType = "CUSTOMER";
+    }
+
     public String getCf() {
         return cf;
     }
