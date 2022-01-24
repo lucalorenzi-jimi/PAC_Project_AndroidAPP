@@ -23,7 +23,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:title="Welcome to out App!"
+                app:title="Welcome to our App!"
                 app:titleTextColor="@color/white" />
 
             <Button
@@ -32,6 +32,7 @@
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/ic_baseline_person_24_white"
                 android:text="Login"
+                android:layout_marginEnd="5dp"
                 app:layout_constraintBottom_toBottomOf="@+id/toolbar"
                 app:layout_constraintEnd_toEndOf="@+id/toolbar"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -43,15 +44,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/menuToolbar"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="20dp">
 
         <EditText
             android:id="@+id/searchBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="10dp"
             android:layout_toStartOf="@+id/btnSearch"
-            android:hint="Address" />
+            android:background="@drawable/rgstr_bg_violet"
+            android:hint="Address"
+            android:minHeight="48dp"
+            android:paddingLeft="20dp" />
 
         <ImageView
             android:id="@+id/btnSearch"
@@ -59,7 +66,19 @@
             android:layout_height="40dp"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="15dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/rgstr_bg_violet"
+            android:backgroundTint="@color/purple_500"
             android:src="@drawable/ic_baseline_search_24" />
+
+        <Button
+            android:id="@+id/btnDatePicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/searchBox"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:text="Date picker" />
 
         <TextView
             android:id="@+id/moreFilters"
@@ -67,10 +86,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/searchBox"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="30dp"
             android:layout_marginRight="50dp"
             android:text="More filters"
-            android:textSize="15dp" />
+            android:textSize="15dp"
+            />
 
         <ImageView
             android:id="@+id/btnDownArrow"
@@ -78,7 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/searchBox"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="30dp"
             android:layout_marginRight="10dp"
             android:src="@drawable/ic_baseline_keyboard_arrow_down_24" />
 
@@ -88,7 +108,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/searchBox"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="30dp"
             android:layout_marginRight="10dp"
             android:src="@drawable/ic_baseline_keyboard_arrow_up_24"
             android:visibility="gone"/>
@@ -98,21 +118,21 @@
             android:id="@+id/moreFilters2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/moreFilters"
-            android:visibility="gone">
+            android:layout_below="@+id/btnDatePicker"
+            android:visibility="visible">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="200dp" />
+                app:layout_constraintGuide_begin="201dp" />
 
             <TextView
                 android:id="@+id/numGuests"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:text="Number of guests:"
                 android:textColor="@color/black"
                 android:textSize="15dp"
@@ -120,50 +140,112 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Spinner
-                android:id="@+id/numGuestSpinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <TextView
+                android:id="@+id/numGuestSelector"
+                android:layout_width="44dp"
+                android:layout_height="41dp"
+                android:background="@drawable/rgstr_bg_violet"
+                android:gravity="center"
+                android:inputType="number"
+                android:text="1"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/numGuests"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline4"
                 app:layout_constraintTop_toTopOf="@+id/numGuests" />
 
+            <ImageView
+                android:id="@+id/addGuest"
+                android:layout_width="42dp"
+                android:layout_height="40dp"
+                android:background="@drawable/rgstr_bg_violet"
+                android:backgroundTint="@color/purple_500"
+                android:src="@drawable/ic_baseline_add_24"
+                app:layout_constraintBottom_toBottomOf="@+id/numGuestSelector"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/numGuestSelector"
+                app:layout_constraintTop_toTopOf="@+id/numGuestSelector" />
+
+            <ImageView
+                android:id="@+id/removeGuest"
+                android:layout_width="42dp"
+                android:layout_height="40dp"
+                android:background="@drawable/rgstr_bg_violet"
+                android:backgroundTint="@color/purple_500"
+                android:src="@drawable/ic_baseline_remove_24"
+                app:layout_constraintBottom_toBottomOf="@+id/numGuestSelector"
+                app:layout_constraintEnd_toStartOf="@+id/numGuestSelector"
+                app:layout_constraintStart_toStartOf="@+id/guideline4"
+                app:layout_constraintTop_toTopOf="@+id/numGuestSelector" />
+
+
             <TextView
                 android:id="@+id/budgetNotte"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:text="Budget:"
+                android:layout_marginTop="40dp"
+                android:text="Budget x night:"
                 android:textColor="@color/black"
                 android:textSize="15dp"
-                app:layout_constraintEnd_toEndOf="@+id/numGuests"
                 app:layout_constraintStart_toStartOf="@+id/numGuests"
                 app:layout_constraintTop_toBottomOf="@+id/numGuests" />
 
-            <EditText
-                android:id="@+id/budgetNotteSelector"
-                android:layout_width="100dp"
+            <Spinner
+                android:id="@+id/budgetSpinner"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Budget"
-                android:textSize="15dp"
                 app:layout_constraintBottom_toBottomOf="@+id/budgetNotte"
-                app:layout_constraintEnd_toEndOf="@+id/numGuestSpinner"
-                app:layout_constraintStart_toStartOf="@+id/numGuestSpinner"
-                app:layout_constraintTop_toTopOf="@+id/budgetNotte"
-                app:layout_constraintVertical_bias="0.363" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline4"
+                app:layout_constraintTop_toTopOf="@+id/budgetNotte" />
+
+            <TextView
+                android:id="@+id/range"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="Range:"
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                app:layout_constraintStart_toStartOf="@+id/budgetNotte"
+                app:layout_constraintTop_toBottomOf="@+id/budgetNotte" />
+
+            <Spinner
+                android:id="@+id/rangeSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/range"
+                app:layout_constraintEnd_toEndOf="@+id/budgetSpinner"
+                app:layout_constraintTop_toTopOf="@+id/range" />
+
+
+            <TextView
+                android:id="@+id/textTags"
+                android:layout_width="58dp"
+                android:layout_height="33dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/rgstr_bg_violet_1"
+                android:backgroundTint="@color/purple_500"
+                android:gravity="center"
+                android:text="Tags:"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/range"
+                app:layout_constraintStart_toStartOf="@+id/range"
+                app:layout_constraintTop_toBottomOf="@+id/range" />
 
             <CheckBox
                 android:id="@+id/tagMountain"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layoutDirection="rtl"
-                android:paddingStart="200dp"
+                android:layout_marginTop="30dp"
+                android:paddingStart="20dp"
                 android:text="Mountain"
-                android:textDirection="ltr"
                 android:textSize="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline4"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textTags" />
 
@@ -171,10 +253,8 @@
                 android:id="@+id/tagSea"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layoutDirection="rtl"
-                android:paddingStart="200dp"
+                android:paddingStart="20dp"
                 android:text="Sea"
-                android:textDirection="ltr"
                 android:textSize="15dp"
                 app:layout_constraintEnd_toEndOf="@+id/tagMountain"
                 app:layout_constraintHorizontal_bias="0.525"
@@ -185,10 +265,8 @@
                 android:id="@+id/tagCity"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layoutDirection="rtl"
-                android:paddingStart="200dp"
+                android:paddingStart="20dp"
                 android:text="City"
-                android:textDirection="ltr"
                 android:textSize="15dp"
                 app:layout_constraintEnd_toEndOf="@+id/tagSea"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -199,10 +277,8 @@
                 android:id="@+id/tagLake"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layoutDirection="rtl"
-                android:paddingStart="200dp"
+                android:paddingStart="20dp"
                 android:text="Lake"
-                android:textDirection="ltr"
                 android:textSize="15dp"
                 app:layout_constraintEnd_toEndOf="@+id/tagCity"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -211,26 +287,21 @@
 
             <CheckBox
                 android:id="@+id/tagBB"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layoutDirection="rtl"
                 android:paddingStart="20dp"
                 android:text="Bed and Breakfast"
-                android:textDirection="ltr"
                 android:textSize="15dp"
-                app:layout_constraintEnd_toEndOf="@+id/tagLake"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/tagLake"
-                app:layout_constraintTop_toBottomOf="@+id/tagLake" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline4"
+                app:layout_constraintTop_toTopOf="@+id/tagMountain" />
 
             <CheckBox
                 android:id="@+id/tagMetropoly"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layoutDirection="rtl"
                 android:paddingStart="20dp"
                 android:text="Metropoly"
-                android:textDirection="ltr"
                 android:textSize="15dp"
                 app:layout_constraintEnd_toEndOf="@+id/tagBB"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -241,33 +312,28 @@
                 android:id="@+id/tagCountryside"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layoutDirection="rtl"
                 android:paddingStart="20dp"
                 android:text="Countryside"
-                android:textDirection="ltr"
                 android:textSize="15dp"
                 app:layout_constraintEnd_toEndOf="@+id/tagMetropoly"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/tagMetropoly"
                 app:layout_constraintTop_toBottomOf="@+id/tagMetropoly" />
 
-            <TextView
-                android:id="@+id/textTags"
-                android:layout_width="wrap_content"
+            <CheckBox
+                android:id="@+id/tagRelax"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:text="Tags:"
-
-                android:textColor="@color/black"
+                android:paddingStart="20dp"
+                android:text="Relax"
                 android:textSize="15dp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/budgetNotte"
-                app:layout_constraintStart_toStartOf="@+id/budgetNotte"
-                app:layout_constraintTop_toBottomOf="@+id/budgetNotte" />
+                app:layout_constraintEnd_toEndOf="@+id/tagCountryside"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/tagCountryside"
+                app:layout_constraintTop_toBottomOf="@+id/tagCountryside" />
 
 
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 

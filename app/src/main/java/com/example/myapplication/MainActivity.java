@@ -3,6 +3,7 @@ package com.example.myapplication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.util.Pair;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -20,6 +21,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.datepicker.MaterialDatePicker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,14 +34,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText searchBox, budgetNotteSelector;
-    TextView moreFilters, numGuests, budgetNotte;
-    ImageView btnSearch, btnDownArrow, btnUpArrow;
-    Spinner numGuestSpinner;
+    EditText searchBox;
+    TextView moreFilters, numGuests, budgetNotte, numGuestSelector;
+    ImageView btnSearch, btnDownArrow, btnUpArrow, removeGuest, addGuest;
     ConstraintLayout constrLayout;
     MaterialToolbar materialToolbar;
-    Button loginRedirect;
+    Button loginRedirect, datePicker;
     CheckBox tagMountain, tagSea, tagCity, tagLake, tagMetropoly, tagBB, tagCountryside;
+    Spinner budgetSpinner, rangeSpinner;
+
+    MaterialDatePicker materialDatePicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,14 @@ public class MainActivity extends AppCompatActivity {
         //getSupportActionBar().hide();
 
         initViews();
+
+        datePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                materialDatePicker.show(getSupportFragmentManager(),"DATE_PICKER");
+
+            }
+        });
 
         btnDownArrow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +80,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        addGuest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Integer i = Integer.parseInt(numGuestSelector.getText().toString());
+                if (i<20) {
+                    i++;
+                    numGuestSelector.setText(i.toString());
+                }
+            }
+        });
+
+        removeGuest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Integer i = Integer.parseInt(numGuestSelector.getText().toString());
+                if (i>1) {
+                    i--;
+                    numGuestSelector.setText(i.toString());
+                }
+            }
+        });
+
         loginRedirect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void initViews(){
         searchBox = findViewById(R.id.searchBox);
-        budgetNotteSelector = findViewById(R.id.budgetNotteSelector);
         moreFilters = findViewById(R.id.moreFilters);
         numGuests = findViewById(R.id.numGuests);
         budgetNotte = findViewById(R.id.budgetNotte);
@@ -89,14 +122,35 @@ public class MainActivity extends AppCompatActivity {
         btnDownArrow = findViewById(R.id.btnDownArrow);
         btnUpArrow = findViewById(R.id.btnUpArrow);
         loginRedirect = findViewById(R.id.loginRedirect);
+        datePicker = findViewById(R.id.btnDatePicker);
+        numGuestSelector = findViewById(R.id.numGuestSelector);
+        addGuest = findViewById(R.id.addGuest);
+        removeGuest = findViewById(R.id.removeGuest);
 
-        numGuestSpinner = findViewById(R.id.numGuestSpinner);
-        ArrayList<Integer> numGuest = new ArrayList<Integer>();
-        for (int x = 0; x<=15; x++) {
-            numGuest.add(x);
-        }
-        ArrayAdapter<Integer> numGuestAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,numGuest);
-        numGuestSpinner.setAdapter(numGuestAdapter);
+        MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
+        materialDatePicker = builder.build();
+
+        budgetSpinner = findViewById(R.id.budgetSpinner);
+        ArrayList<String> rangeBudgets = new ArrayList<String>();
+        rangeBudgets.add("");
+        rangeBudgets.add("0€ ~ 25€");
+        rangeBudgets.add("25€ ~ 50€");
+        rangeBudgets.add("50€ ~ 75€");
+        rangeBudgets.add("75€ ~ 100€");
+        rangeBudgets.add("100€+");
+        ArrayAdapter<String> numGuestAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,rangeBudgets);
+        budgetSpinner.setAdapter(numGuestAdapter);
+
+        rangeSpinner = findViewById(R.id.rangeSpinner);
+        ArrayList<String> rangeDistance = new ArrayList<String>();
+        rangeDistance.add("");
+        rangeDistance.add("< 2.5Km");
+        rangeDistance.add("2.5Km ~ 5Km");
+        rangeDistance.add("5Km ~ 7.5Km");
+        rangeDistance.add("7.5Km ~ 10Km");
+        rangeDistance.add("> 10Km");
+        ArrayAdapter<String> rangeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,rangeDistance);
+        rangeSpinner.setAdapter(rangeAdapter);
 
         tagMountain = findViewById(R.id.tagMountain);
         tagSea = findViewById(R.id.tagSea);
@@ -107,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
         tagCountryside = findViewById(R.id.tagCountryside);
         constrLayout = findViewById(R.id.moreFilters2);
         materialToolbar = findViewById(R.id.toolbar);
+
 
 
         /*tagList = findViewById(R.id.tagsList);

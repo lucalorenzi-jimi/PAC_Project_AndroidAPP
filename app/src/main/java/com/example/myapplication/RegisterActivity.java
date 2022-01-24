@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.util.Pair;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,10 +10,20 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.regex.Pattern;
 
 import okhttp3.ResponseBody;
@@ -36,8 +47,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     EditText rgstrName, rgstrSurname, rgstrCF, rgstrEmail, rgstrDob, rgstrPwd, rgstrRepeatPwd;
     Button btnRegister;
-
     String inputCF, inputName, inputSurname, inputEmail, inputDOB, inputPwd;
+    MaterialDatePicker<Long> materialDatePicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +56,27 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         initViews();
+
+        rgstrDob.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                materialDatePicker.show(getSupportFragmentManager(),"DATE_PICKER");
+                materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
+                    @Override
+                    public void onPositiveButtonClick(Long selection) {
+                        // Get the offset from our timezone and UTC.
+                        TimeZone timeZoneUTC = TimeZone.getDefault();
+                        // It will be negative, so that's the -1
+                        int offsetFromUTC = timeZoneUTC.getOffset(new Date().getTime()) * -1;
+                        // Create a date format, then a date object with our offset
+                        SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+                        Date date = new Date(selection + offsetFromUTC);
+
+                        rgstrDob.setText(simpleFormat.format(date));
+                    }
+                });
+            }
+        });
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +136,9 @@ public class RegisterActivity extends AppCompatActivity {
         rgstrPwd = findViewById(R.id.rgstrPwd);
         rgstrRepeatPwd = findViewById(R.id.rgstrRepeatPwd);
         btnRegister = findViewById(R.id.btnRgstr);
+
+        MaterialDatePicker.Builder<Long> builder = MaterialDatePicker.Builder.datePicker();
+        materialDatePicker = builder.build();
     }
 
     public boolean validateName() {
