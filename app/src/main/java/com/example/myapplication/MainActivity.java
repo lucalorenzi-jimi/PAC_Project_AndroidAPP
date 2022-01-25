@@ -62,6 +62,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,ResultApartmentActivity.class);
+                startActivity(intent);
+            }
+        });
+
         btnDownArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
