@@ -1,13 +1,14 @@
 package com.example.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -22,6 +23,7 @@ public class ApartmentRecViewAdapter extends RecyclerView.Adapter<ApartmentRecVi
     private static final String TAG = "ApartmentViewAdapter";
 
     private ArrayList<Apartment> apartments = new ArrayList<>();
+    private String startDate, endDate;
     private Context mContext;
     private ViewHolder holder;
     private int position;
@@ -40,15 +42,26 @@ public class ApartmentRecViewAdapter extends RecyclerView.Adapter<ApartmentRecVi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         Log.d(TAG, "onBindViewOlder: Called");
-        holder.txtName.setText(apartments.get(position).getName());
+        holder.txtName.setText(apartments.get(position).getDescription());
         holder.txtAddress.setText((apartments.get(position).getLocation()));
-        holder.txtPrice.setText((apartments.get(position).getPricePerNight().toString()));
+        holder.txtPrice.setText((apartments.get(position).getPricePerNight().toString()).concat("€"));
         Glide.with(mContext).asBitmap().load(apartments.get(position).getImageUrl()).into(holder.imgApartment);
+
+        int i = position;
 
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, /*apartments.get(position).getName() + */ " selected", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(mContext, ApartmentActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("Requested apartment", apartments.get(i));
+                bundle.putString("Start Date", startDate);
+                bundle.putString("End Date", endDate);
+                intent.putExtras(bundle);
+                //intent.putExtra("Requested apartment", apartments.get(i));
+                //intent.putExtra("Start Date", startDate);
+                //intent.putExtra("End Date", endDate);
+                mContext.startActivity(intent);
             }
         });
     }
@@ -58,8 +71,18 @@ public class ApartmentRecViewAdapter extends RecyclerView.Adapter<ApartmentRecVi
         return apartments.size();
     }
 
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+        notifyDataSetChanged();
+    }
+
     public void setApartments(ArrayList<Apartment> apartments) {
         this.apartments = apartments;
+        notifyDataSetChanged();
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
         notifyDataSetChanged();
     }
 

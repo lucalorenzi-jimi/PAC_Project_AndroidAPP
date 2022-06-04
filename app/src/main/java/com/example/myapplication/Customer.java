@@ -6,6 +6,8 @@ import java.sql.Date;
 
 public class Customer {
 
+    public String id;
+
     public String cf;
 
     public String name;
@@ -18,16 +20,24 @@ public class Customer {
 
     public String pwd;
 
-    public String accountType;
-
-    public Customer(String cf, String name, String surname, String dob, String email, String pwd) {
+    public Customer(String id, String cf, String name, String surname, String dob, String email, String pwd) {
+        this.id = id;
         this.cf = cf;
         this.name = name;
         this.surname = surname;
         this.dob = dob;
         this.email = email;
         this.pwd = pwd;
-        this.accountType = "CUSTOMER";
+    }
+
+    public Customer( String cf, String name, String surname, String dob, String email, String pwd) {
+        this.id = "0";
+        this.cf = cf;
+        this.name = name;
+        this.surname = surname;
+        this.dob = dob;
+        this.email = email;
+        this.pwd = pwd;
     }
 
     public String getCf() {

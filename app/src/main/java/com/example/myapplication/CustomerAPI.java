@@ -13,10 +13,10 @@ import retrofit2.http.Path;
 
 public interface CustomerAPI {
 
-    @GET("controller/customer")
+    @GET("controller/user")
     Call<List<Customer>> getCustomers();
 
-    @GET("controller/customer/{email}")
+    @GET("controller/user/{email}")
     Call<Customer> getCustomer(@Path("email") String email);
 
     @POST("login")
@@ -25,4 +25,8 @@ public interface CustomerAPI {
     @POST("controller/registration")
     Call<ResponseBody> registerCustomer(@Body Customer customer);
 
+    @GET("resetPwd/request/{email}")
+    Call<Customer> resetPWDCustomer(@Path("email") String email);
+
 }
+

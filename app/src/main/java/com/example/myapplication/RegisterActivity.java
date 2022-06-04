@@ -69,7 +69,7 @@ public class RegisterActivity extends AppCompatActivity {
                         // It will be negative, so that's the -1
                         int offsetFromUTC = timeZoneUTC.getOffset(new Date().getTime()) * -1;
                         // Create a date format, then a date object with our offset
-                        SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+                        SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ITALY);
                         Date date = new Date(selection + offsetFromUTC);
 
                         rgstrDob.setText(simpleFormat.format(date));

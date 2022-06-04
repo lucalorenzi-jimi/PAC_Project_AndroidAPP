@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.dialog.MaterialDialogs;
 import com.google.android.material.textfield.TextInputEditText;
 
 import okhttp3.MultipartBody;
@@ -24,7 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
 
-    TextView btnSignUp;
+    TextView btnSignUp, btnForgotPWD;
     EditText inputEmail, inputPassword;
     Button btnLogin;
     Boolean flag = false;
@@ -61,8 +63,30 @@ public class LoginActivity extends AppCompatActivity {
                             if(!response.isSuccessful()) {
                                 Toast.makeText(LoginActivity.this,"WRONG CREDENTIALS.", Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(LoginActivity.this,"LOGIN COMPLETE SUCCESSFULLY.", Toast.LENGTH_LONG).show();
-                                flag = true;
+                                Toast.makeText(LoginActivity.this,"LOGIN COMPLETED SUCCESSFULLY.", Toast.LENGTH_LONG).show();
+                                customerAPI.getCustomer(inputEmail.getText().toString()).enqueue(new Callback<Customer>() {
+                                    @Override
+                                    public void onResponse(Call<Customer> call, Response<Customer> response) {
+                                        if(!response.isSuccessful()) {
+                                            Toast.makeText(LoginActivity.this,"Something gone wrong, please make another attempt.", Toast.LENGTH_LONG).show();
+                                        } else {
+
+                                            Customer loggedCustomer = response.body();
+
+                                            currentSession = new SessionManager(LoginActivity.this);
+                                            currentSession.createLoginSession(loggedCustomer.id, loggedCustomer.name,loggedCustomer.surname,loggedCustomer.email,loggedCustomer.cf, loggedCustomer.dob);
+
+                                            flag = false;
+                                            startActivity(new Intent(LoginActivity.this,HomePageActivity.class));
+
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<Customer> call, Throwable t) {
+                                        Toast.makeText(LoginActivity.this,"Error during retrieving data.", Toast.LENGTH_LONG).show();
+                                    }
+                                });
                             }
                         }
 
@@ -73,12 +97,12 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
 
-                    if (flag=true) {
+                    /*if (flag==true) {
                         customerAPI.getCustomer(inputEmail.getText().toString()).enqueue(new Callback<Customer>() {
                             @Override
                             public void onResponse(Call<Customer> call, Response<Customer> response) {
                                 if(!response.isSuccessful()) {
-                                    Toast.makeText(LoginActivity.this,"Something gone wrong, please male another attempt.", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(LoginActivity.this,"Something gone wrong, please make another attempt.", Toast.LENGTH_LONG).show();
                                 } else {
 
                                     Customer loggedCustomer = response.body();
@@ -86,6 +110,7 @@ public class LoginActivity extends AppCompatActivity {
                                     currentSession = new SessionManager(LoginActivity.this);
                                     currentSession.createLoginSession(loggedCustomer.name,loggedCustomer.surname,loggedCustomer.email,loggedCustomer.cf, loggedCustomer.dob);
 
+                                    flag = false;
                                     startActivity(new Intent(LoginActivity.this,TestDashboard.class));
 
                                 }
@@ -97,7 +122,7 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         });
 
-                    }
+                    }*/
 
                 }
 
@@ -111,11 +136,19 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btnForgotPWD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openDialog();
+            }
+        });
     }
 
     public void initViews() {
 
         btnSignUp = findViewById(R.id.textSignUp);
+        btnForgotPWD = findViewById(R.id.textForgotPWD);
         inputEmail = findViewById(R.id.inputEmail);
         inputPassword = findViewById(R.id.inputPwd);
         btnLogin = findViewById(R.id.btnLogin);
@@ -156,6 +189,13 @@ public class LoginActivity extends AppCompatActivity {
                 .addFormDataPart("password", inputPassword.getText().toString())
                 .build();
 
+
+    }
+
+    private void openDialog() {
+
+        ResetPWDDialog dialog = new ResetPWDDialog();
+        dialog.show(getSupportFragmentManager(),"ResetPWDDialog");
 
     }
 }

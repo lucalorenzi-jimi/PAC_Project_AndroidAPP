@@ -13,6 +13,7 @@ public class SessionManager {
 
     private static final String IS_LOGGED_IN = "IsLoggedIn";
 
+    public static final String KEY_ID = "UserID";
     public static final String KEY_NAME = "Name";
     public static final String KEY_SURNAME = "Surname";
     public static final String KEY_EMAIL = "Email";
@@ -27,10 +28,11 @@ public class SessionManager {
 
     }
 
-    public void createLoginSession(String name, String surname,String email, String codiceFiscale, String dob) {
+    public void createLoginSession(String id, String name, String surname,String email, String codiceFiscale, String dob) {
 
         editor.putBoolean(IS_LOGGED_IN,true);
 
+        editor.putString(KEY_ID,id);
         editor.putString(KEY_NAME,name);
         editor.putString(KEY_SURNAME,surname);
         editor.putString(KEY_EMAIL,email);
@@ -45,6 +47,7 @@ public class SessionManager {
 
         HashMap<String,String> userData = new HashMap<String,String>();
 
+        userData.put(KEY_ID,userSession.getString(KEY_ID,null));
         userData.put(KEY_NAME,userSession.getString(KEY_NAME,null));
         userData.put(KEY_SURNAME,userSession.getString(KEY_SURNAME,null));
         userData.put(KEY_EMAIL,userSession.getString(KEY_EMAIL,null));
@@ -56,7 +59,7 @@ public class SessionManager {
     }
 
     public Boolean checkLogin(){
-        if (userSession.getBoolean(IS_LOGGED_IN,true))
+        if (userSession.getBoolean(IS_LOGGED_IN,false))
             return true;
         else
             return false;

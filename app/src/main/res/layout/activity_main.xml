@@ -7,9 +7,9 @@
     tools:context=".MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/menuToolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/menuToolbar">
+        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -23,19 +23,19 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:title="Welcome to our App!"
+                app:title="Easy Booking"
                 app:titleTextColor="@color/white" />
 
-            <Button
+            <!--Button
                 android:id="@+id/loginRedirect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/ic_baseline_person_24_white"
-                android:text="Login"
                 android:layout_marginEnd="5dp"
+               comenti  android:drawableEnd="@drawable/ic_baseline_person_24_white"
+                android:text="Login"
                 app:layout_constraintBottom_toBottomOf="@+id/toolbar"
                 app:layout_constraintEnd_toEndOf="@+id/toolbar"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" -->
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -89,8 +89,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginRight="50dp"
             android:text="More filters"
-            android:textSize="15dp"
-            />
+            android:textSize="15dp" />
 
         <ImageView
             android:id="@+id/btnDownArrow"
@@ -111,7 +110,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginRight="10dp"
             android:src="@drawable/ic_baseline_keyboard_arrow_up_24"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -147,7 +146,7 @@
                 android:background="@drawable/rgstr_bg_violet"
                 android:gravity="center"
                 android:inputType="number"
-                android:text="1"
+                android:text="0"
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 android:textStyle="bold"
@@ -334,9 +333,6 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
 
 
     </RelativeLayout>
