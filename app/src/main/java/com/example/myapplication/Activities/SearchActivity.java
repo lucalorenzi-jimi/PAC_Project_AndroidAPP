@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -6,7 +6,6 @@ import androidx.core.util.Pair;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -17,15 +16,17 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myapplication.API.ApartmentAPI;
+import com.example.myapplication.Classes.Apartment;
+import com.example.myapplication.R;
+import com.example.myapplication.Classes.SearchBody;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
-import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -35,7 +36,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity {
 
     EditText searchBox;
     TextView moreFilters, numGuests, budgetNotte, numGuestSelector;
@@ -231,9 +232,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ArrayList<Apartment>> call, Response<ArrayList<Apartment>> response) {
                 if (response.body()==null || !response.isSuccessful() || response.body().size()==0 ) {
-                    Toast.makeText(MainActivity.this, "No apartments found.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SearchActivity.this, "No apartments found.", Toast.LENGTH_LONG).show();
                 } else {
-                    Intent intent = new Intent(MainActivity.this, ResultSearchActivity.class);
+                    Intent intent = new Intent(SearchActivity.this, ResultSearchActivity.class);
                     ArrayList<Apartment> result = response.body();
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("Result search",result);
@@ -249,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ArrayList<Apartment>> call, Throwable throwable) {
-                Toast.makeText(MainActivity.this, "Error contacting server, please retry.", Toast.LENGTH_LONG).show();
+                Toast.makeText(SearchActivity.this, "Error contacting server, please retry.", Toast.LENGTH_LONG).show();
             }
         });
 

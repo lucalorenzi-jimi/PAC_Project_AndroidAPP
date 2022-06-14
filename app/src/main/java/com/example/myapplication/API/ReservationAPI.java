@@ -1,6 +1,6 @@
-package com.example.myapplication;
+package com.example.myapplication.API;
 
-import java.util.UUID;
+import com.example.myapplication.Classes.Reservation;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;

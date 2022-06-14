@@ -1,12 +1,12 @@
-package com.example.myapplication;
+package com.example.myapplication.API;
+
+import com.example.myapplication.Classes.Apartment;
+import com.example.myapplication.Classes.SearchBody;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface ApartmentAPI {

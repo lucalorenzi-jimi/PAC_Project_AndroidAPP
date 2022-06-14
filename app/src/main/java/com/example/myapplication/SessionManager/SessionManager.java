@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.SessionManager;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -20,7 +20,7 @@ public class SessionManager {
     public static final String KEY_CODICEFISCALE = "CodiceFiscale";
     public static final String KEY_DOB = "DateOfBirth";
 
-    SessionManager(Context _context) {
+    public SessionManager(Context _context) {
 
         context = _context;
         userSession = context.getSharedPreferences("userLoginSession", Context.MODE_PRIVATE);

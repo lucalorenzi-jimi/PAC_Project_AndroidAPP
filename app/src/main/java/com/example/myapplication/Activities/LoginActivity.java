@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,9 +11,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.dialog.MaterialDialogs;
-import com.google.android.material.textfield.TextInputEditText;
+import com.example.myapplication.API.CustomerAPI;
+import com.example.myapplication.Classes.Customer;
+import com.example.myapplication.R;
+import com.example.myapplication.SupportViews.ResetPWDDialog;
+import com.example.myapplication.SessionManager.SessionManager;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;

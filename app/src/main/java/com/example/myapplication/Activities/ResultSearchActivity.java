@@ -1,11 +1,14 @@
-package com.example.myapplication;
+package com.example.myapplication.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
+
+import com.example.myapplication.Classes.Apartment;
+import com.example.myapplication.RecyclerView.ApartmentRecViewAdapter;
+import com.example.myapplication.R;
 
 import java.util.ArrayList;
 

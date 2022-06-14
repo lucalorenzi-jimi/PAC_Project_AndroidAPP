@@ -1,8 +1,7 @@
-package com.example.myapplication;
+package com.example.myapplication.SupportViews;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -15,7 +14,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import java.io.IOException;
+import com.example.myapplication.API.CustomerAPI;
+import com.example.myapplication.Classes.Customer;
+import com.example.myapplication.R;
 
 import retrofit2.Call;
 import retrofit2.Callback;

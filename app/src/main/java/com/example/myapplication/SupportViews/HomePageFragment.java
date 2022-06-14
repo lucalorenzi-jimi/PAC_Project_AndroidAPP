@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.SupportViews;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,9 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.example.myapplication.Activities.SearchActivity;
+import com.example.myapplication.R;
 
 public class HomePageFragment extends Fragment {
 
@@ -27,7 +30,7 @@ public class HomePageFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                startActivity(new Intent(getContext(),MainActivity.class));
+                startActivity(new Intent(getContext(), SearchActivity.class));
 
             }
         });

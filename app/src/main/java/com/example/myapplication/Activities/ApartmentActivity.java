@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -16,6 +16,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.myapplication.API.ReservationAPI;
+import com.example.myapplication.Classes.Apartment;
+import com.example.myapplication.R;
+import com.example.myapplication.Classes.Reservation;
+import com.example.myapplication.SessionManager.SessionManager;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -91,7 +96,7 @@ public class ApartmentActivity extends FragmentActivity implements OnMapReadyCal
                                 Toast.makeText(ApartmentActivity.this, "Apartment already booked, select another period.", Toast.LENGTH_LONG).show();
                             } else {
                                 Toast.makeText(ApartmentActivity.this,"Apartment booked correctly! Good holidays!", Toast.LENGTH_LONG).show();
-                                Intent intent = new Intent(ApartmentActivity.this,MainActivity.class);
+                                Intent intent = new Intent(ApartmentActivity.this, SearchActivity.class);
                                 startActivity(intent);
                             }
                         }
