@@ -26,16 +26,7 @@
                 app:title="Easy Booking"
                 app:titleTextColor="@color/white" />
 
-            <!--Button
-                android:id="@+id/loginRedirect"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-               comenti  android:drawableEnd="@drawable/ic_baseline_person_24_white"
-                android:text="Login"
-                app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-                app:layout_constraintEnd_toEndOf="@+id/toolbar"
-                app:layout_constraintTop_toTopOf="parent" -->
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -146,7 +137,7 @@
                 android:background="@drawable/rgstr_bg_violet"
                 android:gravity="center"
                 android:inputType="number"
-                android:text="0"
+                android:text="1"
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 android:textStyle="bold"
@@ -240,10 +231,11 @@
                 android:id="@+id/tagMountain"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="15dp"
                 android:paddingStart="20dp"
                 android:text="Mountain"
                 android:textSize="15dp"
+                android:buttonTint="@color/purple_500"
                 app:layout_constraintEnd_toStartOf="@+id/guideline4"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textTags" />
@@ -255,6 +247,7 @@
                 android:paddingStart="20dp"
                 android:text="Sea"
                 android:textSize="15dp"
+                android:buttonTint="@color/purple_500"
                 app:layout_constraintEnd_toEndOf="@+id/tagMountain"
                 app:layout_constraintHorizontal_bias="0.525"
                 app:layout_constraintStart_toStartOf="@+id/tagMountain"
@@ -267,6 +260,7 @@
                 android:paddingStart="20dp"
                 android:text="City"
                 android:textSize="15dp"
+                android:buttonTint="@color/purple_500"
                 app:layout_constraintEnd_toEndOf="@+id/tagSea"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/tagSea"
@@ -279,6 +273,7 @@
                 android:paddingStart="20dp"
                 android:text="Lake"
                 android:textSize="15dp"
+                android:buttonTint="@color/purple_500"
                 app:layout_constraintEnd_toEndOf="@+id/tagCity"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/tagCity"
@@ -291,6 +286,7 @@
                 android:paddingStart="20dp"
                 android:text="Bed and Breakfast"
                 android:textSize="15dp"
+                android:buttonTint="@color/purple_500"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline4"
                 app:layout_constraintTop_toTopOf="@+id/tagMountain" />
@@ -302,6 +298,7 @@
                 android:paddingStart="20dp"
                 android:text="Metropoly"
                 android:textSize="15dp"
+                android:buttonTint="@color/purple_500"
                 app:layout_constraintEnd_toEndOf="@+id/tagBB"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/tagBB"
@@ -314,6 +311,7 @@
                 android:paddingStart="20dp"
                 android:text="Countryside"
                 android:textSize="15dp"
+                android:buttonTint="@color/purple_500"
                 app:layout_constraintEnd_toEndOf="@+id/tagMetropoly"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/tagMetropoly"
@@ -326,10 +324,36 @@
                 android:paddingStart="20dp"
                 android:text="Relax"
                 android:textSize="15dp"
+                android:buttonTint="@color/purple_500"
                 app:layout_constraintEnd_toEndOf="@+id/tagCountryside"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/tagCountryside"
                 app:layout_constraintTop_toBottomOf="@+id/tagCountryside" />
+
+            <TextView
+                android:id="@+id/multipleApartmens"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Do you want to split reservation in multiple apartments?"
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tagLake" />
+
+            <Switch
+                android:id="@+id/switchMultipleApartmens"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textOff="No"
+                android:textOn="Yes"
+                android:theme="@style/SCBSwitch"
+                app:layout_constraintBottom_toBottomOf="@+id/multipleApartmens"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/multipleApartmens"
+                app:layout_constraintTop_toTopOf="@+id/multipleApartmens" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

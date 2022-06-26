@@ -13,11 +13,14 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.API.ApartmentAPI;
+import com.example.myapplication.API.MultipleApartmentAPI;
 import com.example.myapplication.Classes.Apartment;
+import com.example.myapplication.Classes.MultipleApartmentsStructure;
 import com.example.myapplication.R;
 import com.example.myapplication.Classes.SearchBody;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -47,8 +50,10 @@ public class SearchActivity extends AppCompatActivity {
     CheckBox tagMountain, tagSea, tagCity, tagLake, tagMetropoly, tagBB, tagCountryside;
     Spinner budgetSpinner, rangeSpinner;
     ApartmentAPI apartmentAPI;
+    MultipleApartmentAPI multipleApartmentAPI;
     String prenotationStart;
     String prenotationEnd;
+    Switch multipleApartments;
 
     MaterialDatePicker materialDatePicker;
 
@@ -89,10 +94,11 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                searchForApartment();
+                if (multipleApartments.isChecked())
+                    searchForMultipleApartment();
+                else
+                    searchForApartment();
 
-                //Intent intent = new Intent(MainActivity.this, ResultSearchActivity.class);
-                //startActivity(intent);
             }
         });
 
@@ -129,21 +135,12 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Integer i = Integer.parseInt(numGuestSelector.getText().toString());
-                if (i>0) {
+                if (i>1) {
                     i--;
                     numGuestSelector.setText(i.toString());
                 }
             }
         });
-
-        /*loginRedirect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
-        });*/
-
 
     }
 
@@ -160,6 +157,7 @@ public class SearchActivity extends AppCompatActivity {
         numGuestSelector = findViewById(R.id.numGuestSelector);
         addGuest = findViewById(R.id.addGuest);
         removeGuest = findViewById(R.id.removeGuest);
+        multipleApartments = findViewById(R.id.switchMultipleApartmens);
 
         MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
         materialDatePicker = builder.build();
@@ -196,22 +194,6 @@ public class SearchActivity extends AppCompatActivity {
         constrLayout = findViewById(R.id.moreFilters2);
         materialToolbar = findViewById(R.id.toolbar);
 
-        /*tagList = findViewById(R.id.tagsList);
-        ArrayList<String> tags = new ArrayList<>();
-        tags.add("Mountain");
-        tags.add("Sea");
-        tags.add("City");
-        tags.add("Lake");
-        tags.add("B&B");
-        tags.add("Metropoly");
-        tags.add("City");
-        tags.add("Tropical");
-        tags.add("Porco dio");
-
-        tagList = findViewById(R.id.listTags);
-        String[] tags = {"Mountain","Sea","City", "Lake", "B&B", "Metropoly", "City","Tropical"};
-        ArrayAdapter<String> tagsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, tags);
-        tagList.setAdapter(tagsAdapter);*/
     }
 
     private void searchForApartment() {
@@ -241,8 +223,6 @@ public class SearchActivity extends AppCompatActivity {
                     bundle.putString("Start Date", prenotationStart);
                     bundle.putString("End Date", prenotationEnd);
                     intent.putExtras(bundle);
-                    //intent.putExtra("Start Date", prenotationStart);
-                    //intent.putExtra("End Date", prenotationEnd);
                     startActivity(intent);
                 }
 
@@ -250,6 +230,43 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ArrayList<Apartment>> call, Throwable throwable) {
+                Toast.makeText(SearchActivity.this, "Error contacting server, please retry.", Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+    }
+
+    private void searchForMultipleApartment() {
+
+        SearchBody searchBody = new SearchBody(Integer.parseInt(numGuestSelector.getText().toString()),
+                searchBox.getText().toString(),rangeConverter(rangeSpinner.getSelectedItem().toString()),
+                tagsConverter(),priceConverter(budgetSpinner.getSelectedItem().toString()),prenotationStart,prenotationEnd,1);
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://10.0.0.10:8080/").addConverterFactory(GsonConverterFactory.create()).build();
+
+        multipleApartmentAPI = retrofit.create(MultipleApartmentAPI.class);
+
+        multipleApartmentAPI.getApartments(searchBody).enqueue(new Callback<ArrayList<MultipleApartmentsStructure>>() {
+            @Override
+            public void onResponse(Call<ArrayList<MultipleApartmentsStructure>> call, Response<ArrayList<MultipleApartmentsStructure>> response) {
+                if (response.body()==null || !response.isSuccessful() || response.body().size()==0 ) {
+                    Toast.makeText(SearchActivity.this, "No apartments found.", Toast.LENGTH_LONG).show();
+                } else {
+                    Intent intent = new Intent(SearchActivity.this, ResultSplitSearchActivity.class);
+                    ArrayList<MultipleApartmentsStructure> result = response.body();
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelableArrayList("Result search",result);
+                    bundle.putString("Start Date", prenotationStart);
+                    bundle.putString("End Date", prenotationEnd);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<MultipleApartmentsStructure>> call, Throwable throwable) {
                 Toast.makeText(SearchActivity.this, "Error contacting server, please retry.", Toast.LENGTH_LONG).show();
             }
         });
