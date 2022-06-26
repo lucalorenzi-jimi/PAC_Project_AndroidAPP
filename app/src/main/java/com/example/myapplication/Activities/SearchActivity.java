@@ -62,8 +62,6 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //getSupportActionBar().hide();
-
         initViews();
 
         datePicker.setOnClickListener(new View.OnClickListener() {
@@ -202,11 +200,7 @@ public class SearchActivity extends AppCompatActivity {
                 searchBox.getText().toString(),rangeConverter(rangeSpinner.getSelectedItem().toString()),
                 tagsConverter(),priceConverter(budgetSpinner.getSelectedItem().toString()),prenotationStart,prenotationEnd);
 
-        /*Gson gson = new Gson();
-
-        Toast.makeText(MainActivity.this, gson.toJson(searchBody), Toast.LENGTH_LONG).show();*/
-
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://10.0.0.10:8080/").addConverterFactory(GsonConverterFactory.create()).build();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(getString(R.string.baseUrl)).addConverterFactory(GsonConverterFactory.create()).build();
 
         apartmentAPI = retrofit.create(ApartmentAPI.class);
 
@@ -243,7 +237,7 @@ public class SearchActivity extends AppCompatActivity {
                 searchBox.getText().toString(),rangeConverter(rangeSpinner.getSelectedItem().toString()),
                 tagsConverter(),priceConverter(budgetSpinner.getSelectedItem().toString()),prenotationStart,prenotationEnd,1);
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://10.0.0.10:8080/").addConverterFactory(GsonConverterFactory.create()).build();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(getString(R.string.baseUrl)).addConverterFactory(GsonConverterFactory.create()).build();
 
         multipleApartmentAPI = retrofit.create(MultipleApartmentAPI.class);
 

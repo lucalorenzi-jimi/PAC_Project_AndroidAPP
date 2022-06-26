@@ -46,7 +46,7 @@ public class ResetPWDDialog extends AppCompatDialogFragment {
             public void onClick(DialogInterface dialogInterface, int i) {
                 if(validateEmail()) {
 
-                    Retrofit retrofit = new Retrofit.Builder().baseUrl("http://10.0.0.10:8080/").addConverterFactory(GsonConverterFactory.create()).build();
+                    Retrofit retrofit = new Retrofit.Builder().baseUrl(getString(R.string.baseUrl)).addConverterFactory(GsonConverterFactory.create()).build();
 
                     customerAPI = retrofit.create(CustomerAPI.class);
                     Toast.makeText(getContext(),"Check you inbox to reset the password.", Toast.LENGTH_LONG).show();
@@ -65,13 +65,6 @@ public class ResetPWDDialog extends AppCompatDialogFragment {
                             Toast.makeText(getContext(),"Error contacting server, please retry.", Toast.LENGTH_LONG).show();
                         }
                     });
-
-                    /*try {
-                        Response<Customer> result = customerAPI.resetPWDCustomer(editTextEmail.getText().toString()).execute();
-                        Toast.makeText(getContext(),result.toString(), Toast.LENGTH_LONG).show();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }*/
 
                 } else {
                     Toast.makeText(getContext(),"Please enter a valid email address.", Toast.LENGTH_LONG).show();

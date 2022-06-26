@@ -61,9 +61,6 @@ public class ApartmentRecViewAdapter extends RecyclerView.Adapter<ApartmentRecVi
                 bundle.putString("Start Date", startDate);
                 bundle.putString("End Date", endDate);
                 intent.putExtras(bundle);
-                //intent.putExtra("Requested apartment", apartments.get(i));
-                //intent.putExtra("Start Date", startDate);
-                //intent.putExtra("End Date", endDate);
                 mContext.startActivity(intent);
             }
         });

@@ -83,7 +83,7 @@ public class RegisterActivity extends AppCompatActivity {
                 if (validateName() && validateSurname() && validateCF()
                         && validateEmail() && validateDOB() && validatePassword()) {
 
-                    Retrofit retrofit = new Retrofit.Builder().baseUrl("http://10.0.0.10:8080/")
+                    Retrofit retrofit = new Retrofit.Builder().baseUrl(getString(R.string.baseUrl))
                             .addConverterFactory(GsonConverterFactory.create()).build();
 
                     CustomerAPI customerAPI = retrofit.create(CustomerAPI.class);

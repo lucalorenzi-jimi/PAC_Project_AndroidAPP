@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (validateEmail() && validatePassword()) {
 
-                    Retrofit retrofit = new Retrofit.Builder().baseUrl("http://10.0.0.10:8080/").addConverterFactory(GsonConverterFactory.create()).build();
+                    Retrofit retrofit = new Retrofit.Builder().baseUrl(getString(R.string.baseUrl)).addConverterFactory(GsonConverterFactory.create()).build();
 
                     customerAPI = retrofit.create(CustomerAPI.class);
 
@@ -98,33 +98,6 @@ public class LoginActivity extends AppCompatActivity {
 
                         }
                     });
-
-                    /*if (flag==true) {
-                        customerAPI.getCustomer(inputEmail.getText().toString()).enqueue(new Callback<Customer>() {
-                            @Override
-                            public void onResponse(Call<Customer> call, Response<Customer> response) {
-                                if(!response.isSuccessful()) {
-                                    Toast.makeText(LoginActivity.this,"Something gone wrong, please make another attempt.", Toast.LENGTH_LONG).show();
-                                } else {
-
-                                    Customer loggedCustomer = response.body();
-
-                                    currentSession = new SessionManager(LoginActivity.this);
-                                    currentSession.createLoginSession(loggedCustomer.name,loggedCustomer.surname,loggedCustomer.email,loggedCustomer.cf, loggedCustomer.dob);
-
-                                    flag = false;
-                                    startActivity(new Intent(LoginActivity.this,TestDashboard.class));
-
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<Customer> call, Throwable t) {
-                                Toast.makeText(LoginActivity.this,"Error during retrieving data.", Toast.LENGTH_LONG).show();
-                            }
-                        });
-
-                    }*/
 
                 }
 

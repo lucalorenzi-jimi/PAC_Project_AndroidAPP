@@ -52,7 +52,7 @@ public class ApartmentActivity extends FragmentActivity implements OnMapReadyCal
     SessionManager sessionManager;
     HashMap<String,String> userDetails;
     ReservationAPI reservationAPI;
-    Apartment apartment;// = new Apartment("Allegro rifugio", "Serina, via Marconi, 11", "https://img3.idealista.it/blur/WEB_LISTING-M/0/id.pro.it.image.master/4c/9a/0e/137754757.jpg", 30, 5);
+    Apartment apartment;
 
     Geocoder geocoder;
 
@@ -60,15 +60,6 @@ public class ApartmentActivity extends FragmentActivity implements OnMapReadyCal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apartment);
-
-        /*if(isServicesOK()){
-            initViews();
-
-            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapFragment);
-            mapFragment.getMapAsync(this);
-
-            setData(apartment);
-        }*/
 
         initViews();
 
@@ -78,7 +69,7 @@ public class ApartmentActivity extends FragmentActivity implements OnMapReadyCal
             @Override
             public void onClick(View view) {
 
-                Retrofit retrofit = new Retrofit.Builder().baseUrl("http://10.0.0.10:8080/").addConverterFactory(GsonConverterFactory.create()).build();
+                Retrofit retrofit = new Retrofit.Builder().baseUrl(getString(R.string.baseUrl)).addConverterFactory(GsonConverterFactory.create()).build();
 
                 reservationAPI = retrofit.create(ReservationAPI.class);
 
@@ -167,30 +158,6 @@ public class ApartmentActivity extends FragmentActivity implements OnMapReadyCal
             e.printStackTrace();
         }
 
-        //map.addMarker(new MarkerOptions().position(prova).title("Apartment location"));
-        //map.moveCamera(CameraUpdateFactory.newLatLng(prova));
-
     }
 
-
-    /*public boolean isServicesOK(){
-        Log.d(TAG, "isServicesOK: checking google services version");
-
-        int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
-
-        if(available == ConnectionResult.SUCCESS){
-            //everything is fine and the user can make map requests
-            Log.d(TAG, "isServicesOK: Google Play Services is working");
-            return true;
-        }
-        else if(GoogleApiAvailability.getInstance().isUserResolvableError(available)){
-            //an error occured but we can resolve it
-            Log.d(TAG, "isServicesOK: an error occured but we can fix it");
-            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(this, available, ERROR_DIALOG_REQUEST);
-            dialog.show();
-        }else{
-            Toast.makeText(this, "You can't make map requests", Toast.LENGTH_SHORT).show();
-        }
-        return false;
-    }*/
 }

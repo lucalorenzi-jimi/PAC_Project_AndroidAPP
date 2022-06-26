@@ -123,7 +123,6 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
     private void updateDrawerMenu(){
 
-        //NavigationView navigationView = findViewById(R.id.nav_view);
         Menu drawerView = navigationView.getMenu();
 
         navLogin = drawerView.findItem(R.id.nav_login);
@@ -147,7 +146,6 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
     public void postLogoutDrawerMenu(){
 
-        //NavigationView navigationView = findViewById(R.id.nav_view);
         Menu drawerView = navigationView.getMenu();
 
         navLogin = drawerView.findItem(R.id.nav_login);

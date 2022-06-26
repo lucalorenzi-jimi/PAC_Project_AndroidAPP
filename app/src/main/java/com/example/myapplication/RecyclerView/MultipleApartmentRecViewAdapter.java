@@ -59,13 +59,6 @@ public class MultipleApartmentRecViewAdapter extends RecyclerView.Adapter<Multip
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Intent intent = new Intent(mContext, ApartmentActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("Requested apartment", apartments.get(i).getApartment());
-                bundle.putString("Start Date", startDate);
-                bundle.putString("End Date", endDate);
-                intent.putExtras(bundle);
-                mContext.startActivity(intent);*/
                 Toast.makeText(mContext, apartments.get(i).getOrder() + " apartment.", Toast.LENGTH_LONG).show();
             }
         });
