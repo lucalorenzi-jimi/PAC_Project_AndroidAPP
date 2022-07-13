@@ -3,8 +3,19 @@ package com.example.myapplication.Classes;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class MultipleApartmentsStructure  implements Parcelable {
+public class MultipleApartmentsStructure implements Parcelable {
 
+    public static final Creator<MultipleApartmentsStructure> CREATOR = new Creator<MultipleApartmentsStructure>() {
+        @Override
+        public MultipleApartmentsStructure createFromParcel(Parcel in) {
+            return new MultipleApartmentsStructure(in);
+        }
+
+        @Override
+        public MultipleApartmentsStructure[] newArray(int size) {
+            return new MultipleApartmentsStructure[size];
+        }
+    };
     public int order;
     public int total;
     public Apartment apartment;
@@ -21,36 +32,24 @@ public class MultipleApartmentsStructure  implements Parcelable {
         apartment = in.readParcelable(Apartment.class.getClassLoader());
     }
 
-    public static final Creator<MultipleApartmentsStructure> CREATOR = new Creator<MultipleApartmentsStructure>() {
-        @Override
-        public MultipleApartmentsStructure createFromParcel(Parcel in) {
-            return new MultipleApartmentsStructure(in);
-        }
-
-        @Override
-        public MultipleApartmentsStructure[] newArray(int size) {
-            return new MultipleApartmentsStructure[size];
-        }
-    };
-
     public int getOrder() {
         return order;
-    }
-
-    public int getTotal() {
-        return total;
-    }
-
-    public Apartment getApartment() {
-        return apartment;
     }
 
     public void setOrder(int order) {
         this.order = order;
     }
 
+    public int getTotal() {
+        return total;
+    }
+
     public void setTotal(int total) {
         this.total = total;
+    }
+
+    public Apartment getApartment() {
+        return apartment;
     }
 
     public void setApartment(Apartment apartment) {

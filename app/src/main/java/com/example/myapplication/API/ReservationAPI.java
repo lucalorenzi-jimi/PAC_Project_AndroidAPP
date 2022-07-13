@@ -11,6 +11,6 @@ import retrofit2.http.Path;
 public interface ReservationAPI {
 
     @POST("controller/reservation/{idApartment}")
-    Call<ResponseBody> insertPrenotation(@Body Reservation reservation, @Path("idApartment") String apartmentId);
+    Call<ResponseBody> insertReservation(@Body Reservation reservation, @Path("idApartment") String apartmentId);
 
 }

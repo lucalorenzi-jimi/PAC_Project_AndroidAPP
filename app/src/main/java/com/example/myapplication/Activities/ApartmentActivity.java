@@ -80,7 +80,7 @@ public class ApartmentActivity extends FragmentActivity implements OnMapReadyCal
                 }
                 else {
 
-                    reservationAPI.insertPrenotation(new Reservation(startDate, endDate, apartment.getId(), userDetails.get(SessionManager.KEY_ID)),apartment.getId()).enqueue(new Callback<ResponseBody>() {
+                    reservationAPI.insertReservation(new Reservation(startDate, endDate, apartment.getId(), userDetails.get(SessionManager.KEY_ID)),apartment.getId()).enqueue(new Callback<ResponseBody>() {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                             if(!response.isSuccessful()) {

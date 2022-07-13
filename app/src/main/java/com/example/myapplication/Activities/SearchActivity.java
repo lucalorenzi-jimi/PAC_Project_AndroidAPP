@@ -46,7 +46,7 @@ public class SearchActivity extends AppCompatActivity {
     ImageView btnSearch, btnDownArrow, btnUpArrow, removeGuest, addGuest;
     ConstraintLayout constrLayout;
     MaterialToolbar materialToolbar;
-    Button loginRedirect, datePicker;
+    Button datePicker;
     CheckBox tagMountain, tagSea, tagCity, tagLake, tagMetropoly, tagBB, tagCountryside;
     Spinner budgetSpinner, rangeSpinner;
     ApartmentAPI apartmentAPI;
@@ -150,7 +150,6 @@ public class SearchActivity extends AppCompatActivity {
         btnSearch = findViewById(R.id.btnSearch);
         btnDownArrow = findViewById(R.id.btnDownArrow);
         btnUpArrow = findViewById(R.id.btnUpArrow);
-        //loginRedirect = findViewById(R.id.loginRedirect);
         datePicker = findViewById(R.id.btnDatePicker);
         numGuestSelector = findViewById(R.id.numGuestSelector);
         addGuest = findViewById(R.id.addGuest);

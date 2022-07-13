@@ -5,19 +5,25 @@ import android.os.Parcelable;
 
 public class Apartment implements Parcelable {
 
+    public static final Creator<Apartment> CREATOR = new Creator<Apartment>() {
+        @Override
+        public Apartment createFromParcel(Parcel in) {
+            return new Apartment(in);
+        }
+
+        @Override
+        public Apartment[] newArray(int size) {
+            return new Apartment[size];
+        }
+    };
     public String id;
-
     public String ownerEmail;
-
-    private String description;
-
     public int numGuests;
 
     public String location;
-
-    private String imageUrl;
-
     public Double pricePerNight;
+    private String description;
+    private String imageUrl;
 
     protected Apartment(Parcel in) {
         id = in.readString();
@@ -31,70 +37,6 @@ public class Apartment implements Parcelable {
         } else {
             pricePerNight = in.readDouble();
         }
-    }
-
-    public static final Creator<Apartment> CREATOR = new Creator<Apartment>() {
-        @Override
-        public Apartment createFromParcel(Parcel in) {
-            return new Apartment(in);
-        }
-
-        @Override
-        public Apartment[] newArray(int size) {
-            return new Apartment[size];
-        }
-    };
-
-    public void setId(String id) {this.id = id;}
-
-    public void setOwnerEmail(String ownerEmail) {
-        this.ownerEmail = ownerEmail;
-    }
-
-    public void setNumGuests(int numGuests) {
-        this.numGuests = numGuests;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public void setPricePerNight(double pricePerNight) {
-        this.pricePerNight = pricePerNight;
-    }
-
-    public String getId() { return id; }
-
-    public String getOwnerEmail() {
-        return ownerEmail;
-    }
-
-    public int getNumGuests() {
-        return numGuests;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public Double getPricePerNight() {
-        return pricePerNight;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
     }
 
     public Apartment(String description, String location, String imageUrl, double pricePerNight) {
@@ -117,6 +59,61 @@ public class Apartment implements Parcelable {
         this.numGuests = numGuests;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getOwnerEmail() {
+        return ownerEmail;
+    }
+
+    public void setOwnerEmail(String ownerEmail) {
+        this.ownerEmail = ownerEmail;
+    }
+
+    public int getNumGuests() {
+        return numGuests;
+    }
+
+    public void setNumGuests(int numGuests) {
+        this.numGuests = numGuests;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public Double getPricePerNight() {
+        return pricePerNight;
+    }
+
+    public void setPricePerNight(double pricePerNight) {
+        this.pricePerNight = pricePerNight;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     @Override
     public int describeContents() {
