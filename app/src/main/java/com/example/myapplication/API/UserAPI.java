@@ -1,6 +1,6 @@
 package com.example.myapplication.API;
 
-import com.example.myapplication.Classes.Customer;
+import com.example.myapplication.Classes.User;
 
 import java.util.List;
 
@@ -12,22 +12,22 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
-public interface CustomerAPI {
+public interface UserAPI {
 
     @GET("controller/user")
-    Call<List<Customer>> getCustomers();
+    Call<List<User>> getCustomers();
 
     @GET("controller/user/{email}")
-    Call<Customer> getCustomer(@Path("email") String email);
+    Call<User> getUser(@Path("email") String email);
 
     @POST("login")
-    Call<ResponseBody> loginCustomer(@Body RequestBody body);
+    Call<ResponseBody> loginUser(@Body RequestBody body);
 
     @POST("controller/registration")
-    Call<ResponseBody> registerCustomer(@Body Customer customer);
+    Call<ResponseBody> registerUser(@Body User user);
 
     @GET("resetPwd/request/{email}")
-    Call<Customer> resetPWDCustomer(@Path("email") String email);
+    Call<User> resetPWDUser(@Path("email") String email);
 
 }
 

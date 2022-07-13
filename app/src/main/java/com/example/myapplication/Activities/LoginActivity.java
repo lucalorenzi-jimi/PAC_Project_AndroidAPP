@@ -11,8 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.myapplication.API.CustomerAPI;
-import com.example.myapplication.Classes.Customer;
+import com.example.myapplication.API.UserAPI;
+import com.example.myapplication.Classes.User;
 import com.example.myapplication.R;
 import com.example.myapplication.SupportViews.ResetPWDDialog;
 import com.example.myapplication.SessionManager.SessionManager;
@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText inputEmail, inputPassword;
     Button btnLogin;
     Boolean flag = false;
-    CustomerAPI customerAPI;
+    UserAPI userAPI;
 
     SessionManager currentSession;
 
@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     Retrofit retrofit = new Retrofit.Builder().baseUrl(getString(R.string.baseUrl)).addConverterFactory(GsonConverterFactory.create()).build();
 
-                    customerAPI = retrofit.create(CustomerAPI.class);
+                    userAPI = retrofit.create(UserAPI.class);
 
                     RequestBody requestBody = new MultipartBody.Builder()
                             .setType(MultipartBody.FORM)
@@ -59,24 +59,24 @@ public class LoginActivity extends AppCompatActivity {
                             .addFormDataPart("password", inputPassword.getText().toString())
                             .build();
 
-                    customerAPI.loginCustomer(requestBody).enqueue(new Callback<ResponseBody>() {
+                    userAPI.loginUser(requestBody).enqueue(new Callback<ResponseBody>() {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                             if(!response.isSuccessful()) {
                                 Toast.makeText(LoginActivity.this,"WRONG CREDENTIALS.", Toast.LENGTH_LONG).show();
                             } else {
                                 Toast.makeText(LoginActivity.this,"LOGIN COMPLETED SUCCESSFULLY.", Toast.LENGTH_LONG).show();
-                                customerAPI.getCustomer(inputEmail.getText().toString()).enqueue(new Callback<Customer>() {
+                                userAPI.getUser(inputEmail.getText().toString()).enqueue(new Callback<User>() {
                                     @Override
-                                    public void onResponse(Call<Customer> call, Response<Customer> response) {
+                                    public void onResponse(Call<User> call, Response<User> response) {
                                         if(!response.isSuccessful()) {
                                             Toast.makeText(LoginActivity.this,"Something gone wrong, please make another attempt.", Toast.LENGTH_LONG).show();
                                         } else {
 
-                                            Customer loggedCustomer = response.body();
+                                            User loggedUser = response.body();
 
                                             currentSession = new SessionManager(LoginActivity.this);
-                                            currentSession.createLoginSession(loggedCustomer.id, loggedCustomer.name,loggedCustomer.surname,loggedCustomer.email,loggedCustomer.cf, loggedCustomer.dob);
+                                            currentSession.createLoginSession(loggedUser.id, loggedUser.name, loggedUser.surname, loggedUser.email, loggedUser.cf, loggedUser.dob);
 
                                             flag = false;
                                             startActivity(new Intent(LoginActivity.this,HomePageActivity.class));
@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                                     }
 
                                     @Override
-                                    public void onFailure(Call<Customer> call, Throwable t) {
+                                    public void onFailure(Call<User> call, Throwable t) {
                                         Toast.makeText(LoginActivity.this,"Error during retrieving data.", Toast.LENGTH_LONG).show();
                                     }
                                 });

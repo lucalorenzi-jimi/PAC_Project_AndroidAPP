@@ -12,8 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.myapplication.API.CustomerAPI;
-import com.example.myapplication.Classes.Customer;
+import com.example.myapplication.API.UserAPI;
+import com.example.myapplication.Classes.User;
 import com.example.myapplication.R;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
@@ -86,7 +86,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Retrofit retrofit = new Retrofit.Builder().baseUrl(getString(R.string.baseUrl))
                             .addConverterFactory(GsonConverterFactory.create()).build();
 
-                    CustomerAPI customerAPI = retrofit.create(CustomerAPI.class);
+                    UserAPI userAPI = retrofit.create(UserAPI.class);
 
                     inputCF = rgstrCF.getText().toString();
                     inputName = rgstrName.getText().toString();
@@ -95,9 +95,9 @@ public class RegisterActivity extends AppCompatActivity {
                     inputDOB = rgstrDob.getText().toString();
                     inputPwd = rgstrPwd.getText().toString();
 
-                    Customer newCustomer = new Customer(inputCF, inputName, inputSurname, inputDOB, inputEmail, inputPwd);
+                    User newUser = new User(inputCF, inputName, inputSurname, inputDOB, inputEmail, inputPwd);
 
-                    Call<ResponseBody> call = customerAPI.registerCustomer(newCustomer);
+                    Call<ResponseBody> call = userAPI.registerUser(newUser);
 
                     call.enqueue(new Callback<ResponseBody>() {
                         @Override

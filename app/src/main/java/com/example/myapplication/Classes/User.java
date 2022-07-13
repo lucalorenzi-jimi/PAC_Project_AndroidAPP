@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.sql.Date;
 
-public class Customer {
+public class User {
 
     public String id;
 
@@ -20,7 +20,7 @@ public class Customer {
 
     public String pwd;
 
-    public Customer(String id, String cf, String name, String surname, String dob, String email, String pwd) {
+    public User(String id, String cf, String name, String surname, String dob, String email, String pwd) {
         this.id = id;
         this.cf = cf;
         this.name = name;
@@ -30,7 +30,7 @@ public class Customer {
         this.pwd = pwd;
     }
 
-    public Customer( String cf, String name, String surname, String dob, String email, String pwd) {
+    public User(String cf, String name, String surname, String dob, String email, String pwd) {
         this.id = "0";
         this.cf = cf;
         this.name = name;

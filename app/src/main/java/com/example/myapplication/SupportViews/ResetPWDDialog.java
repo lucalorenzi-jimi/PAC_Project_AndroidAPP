@@ -14,8 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import com.example.myapplication.API.CustomerAPI;
-import com.example.myapplication.Classes.Customer;
+import com.example.myapplication.API.UserAPI;
+import com.example.myapplication.Classes.User;
 import com.example.myapplication.R;
 
 import retrofit2.Call;
@@ -27,7 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ResetPWDDialog extends AppCompatDialogFragment {
 
     private EditText editTextEmail;
-    CustomerAPI customerAPI;
+    UserAPI userAPI;
 
     @NonNull
     @Override
@@ -48,11 +48,11 @@ public class ResetPWDDialog extends AppCompatDialogFragment {
 
                     Retrofit retrofit = new Retrofit.Builder().baseUrl(getString(R.string.baseUrl)).addConverterFactory(GsonConverterFactory.create()).build();
 
-                    customerAPI = retrofit.create(CustomerAPI.class);
+                    userAPI = retrofit.create(UserAPI.class);
                     Toast.makeText(getContext(),"Check you inbox to reset the password.", Toast.LENGTH_LONG).show();
-                    customerAPI.resetPWDCustomer(editTextEmail.getText().toString()).enqueue(new Callback<Customer>() {
+                    userAPI.resetPWDUser(editTextEmail.getText().toString()).enqueue(new Callback<User>() {
                         @Override
-                        public void onResponse(Call<Customer> call, Response<Customer> response) {
+                        public void onResponse(Call<User> call, Response<User> response) {
                             if(!response.isSuccessful()) {
                                 Toast.makeText(getContext(),"This email is not related to any account.", Toast.LENGTH_LONG).show();
                             } else {
@@ -61,7 +61,7 @@ public class ResetPWDDialog extends AppCompatDialogFragment {
                         }
 
                         @Override
-                        public void onFailure(Call<Customer> call, Throwable t) {
+                        public void onFailure(Call<User> call, Throwable t) {
                             Toast.makeText(getContext(),"Error contacting server, please retry.", Toast.LENGTH_LONG).show();
                         }
                     });
